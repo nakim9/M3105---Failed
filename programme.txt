@@ -9,9 +9,5 @@ procedure principale()
 tantque (i<25)  i=i+1;
 fintantque
 
-
-
-
-
 finproc
 # Commentaire Final
