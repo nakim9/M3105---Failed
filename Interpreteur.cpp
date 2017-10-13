@@ -81,6 +81,7 @@ Noeud* Interpreteur::inst() {
     testerEtAvancer(";");
     return repeter;
   }
+  
   // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
   else erreur("Instruction incorrecte");
 }
@@ -145,6 +146,27 @@ Noeud* Interpreteur::instSi() {
   Noeud* sequence = seqInst();     // On mémorise la séquence d'instruction
   testerEtAvancer("finsi");
   return new NoeudInstSi(condition, sequence); // Et on renvoie un noeud Instruction Si
+}
+
+Noeud* Interpreteur::instSiRiche() {
+  // <instSiRiche> ::= si (<expression>) <seqInst> { sinonsi (<expression>) <seqInst> } [sinon <seqInst>] finsi
+  testerEtAvancer("si");
+  testerEtAvancer("(");
+  Noeud* condition1 = expression(); // On mémorise la condition
+  testerEtAvancer(")");
+  Noeud* sequence1 = seqInst();     // On mémorise la séquence d'instruction
+  testerEtAvancer("{");
+  testerEtAvancer("sinonsi");
+  testerEtAvancer("(");
+  Noeud* condition2 = expression(); // On mémorise la condition
+  testerEtAvancer(")");
+  Noeud* sequence1 = seqInst();     // On mémorise la séquence d'instruction
+  testerEtAvancer("}");
+  testerEtAvancer("[");
+  testerEtAvancer("sinon");
+  Noeud* sequence1 = seqInst();     // On mémorise la séquence d'instruction
+  testerEtAvancer("]");
+  return nullptr;
 }
 
 Noeud* Interpreteur::instTantQue() {
