@@ -96,4 +96,16 @@ class NoeudInstTantQue : public Noeud {
     Noeud*  m_sequence;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+class NoeudInstRepeter : public Noeud {
+// Classe pour représenter un noeud "instruction repeter"
+    public:
+        NoeudInstRepeter(Noeud* instruction, Noeud* expression);
+        ~NoeudInstRepeter() {}
+        int executer();
+    
+    private:
+        Noeud* m_instruction;
+        Noeud* m_expression;
+}; 
 #endif /* ARBREABSTRAIT_H */

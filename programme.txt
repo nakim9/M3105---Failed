@@ -9,5 +9,8 @@ procedure principale()
 tantque (i<25)  i=i+1;
 fintantque
 
+repeter  
+    i=i+1; 
+jusqua (i==1000);
 finproc
 # Commentaire Final

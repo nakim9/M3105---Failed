@@ -92,3 +92,18 @@ int NoeudInstTantQue::executer() {
   while (m_condition->executer()) m_sequence->executer();
   return 0; // La valeur renvoyée ne représente rien !
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstRepeter
+////////////////////////////////////////////////////////////////////////////////
+
+NoeudInstRepeter::NoeudInstRepeter(Noeud* instruction, Noeud* expression)
+: m_instruction(instruction), m_expression(expression) {
+}
+
+int NoeudInstRepeter::executer() {
+    do 
+        m_instruction->executer();
+    while(!m_expression->executer()); 
+  return 0; // La valeur renvoyée ne représente rien !
+}
