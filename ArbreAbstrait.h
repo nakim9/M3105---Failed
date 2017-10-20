@@ -167,4 +167,21 @@ public:
 private:
     vector<Noeud *> m_chainesEtExpressions;
 };
+
+////////////////////////////////////////////////////////////////////////////////
+
+class NoeudLire : public Noeud {
+    // Classe pour représenter un noeud "instruction lire"
+public:
+    NoeudLire();
+
+    ~NoeudLire() {
+    }
+    int executer();
+    void ajoute(Noeud* parametre) override{
+        m_variables.push_back(parametre);
+    }
+private:
+    vector<Noeud *> m_variables;
+};
 #endif /* ARBREABSTRAIT_H */

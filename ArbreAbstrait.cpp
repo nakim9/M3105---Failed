@@ -122,21 +122,38 @@ int NoeudInstPour::executer() {
 }
 
 
-    // Classe pour représenter un noeud "instruction pour"
+// Classe pour représenter un noeud "ecrire"
 
-    NoeudEcrire::NoeudEcrire()
-    :m_chainesEtExpressions(){
-        
-    }
+NoeudEcrire::NoeudEcrire()
+:m_chainesEtExpressions(){
 
-    int NoeudEcrire::executer(){
-        for(auto p : m_chainesEtExpressions){
-            // on regarde si l’objet pointé par p est de type SymboleValue et si c’est une chaîne
-            if ( (typeid(*p)==typeid(SymboleValue) && *((SymboleValue*)p)== "<CHAINE>" )){
-                cout<<((SymboleValue*)p)->getChaine();
-            }
-            else{
-                cout<<p->executer();
-            }
+}
+
+int NoeudEcrire::executer(){
+    for(auto p : m_chainesEtExpressions){
+        // on regarde si l’objet pointé par p est de type SymboleValue et si c’est une chaîne
+        if ( (typeid(*p)==typeid(SymboleValue) && *((SymboleValue*)p)== "<CHAINE>" )){
+            cout<<((SymboleValue*)p)->getChaine();
+        }
+        else{
+            cout<<p->executer();
         }
     }
+    return 0;
+}
+
+// Classe pour représenter un noeud "lire"
+
+NoeudLire::NoeudLire()
+:m_variables(){
+
+}
+
+int NoeudLire::executer(){
+    for(auto p : m_variables){
+        int valeur;
+        cin>>valeur; //on lit la valeur de le la variable p sur le flux d'entrée
+        ((SymboleValue*) p)->setValeur(valeur); //on affecte la valeur à la variable
+    }
+    return 0;
+}
