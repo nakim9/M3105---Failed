@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <iostream>
+#include <typeinfo>
 #include "ArbreAbstrait.h"
 #include "Symbole.h"
 #include "SymboleValue.h"
@@ -118,3 +120,23 @@ int NoeudInstPour::executer() {
             (m_incrementation) ? m_incrementation->executer() : 0
             ) m_seqInstruction->executer();
 }
+
+
+    // Classe pour représenter un noeud "instruction pour"
+
+    NoeudEcrire::NoeudEcrire()
+    :m_chainesEtExpressions(){
+        
+    }
+
+    int NoeudEcrire::executer(){
+        for(auto p : m_chainesEtExpressions){
+            // on regarde si l’objet pointé par p est de type SymboleValue et si c’est une chaîne
+            if ( (typeid(*p)==typeid(SymboleValue) && *((SymboleValue*)p)== "<CHAINE>" )){
+                cout<<((SymboleValue*)p)->getChaine();
+            }
+            else{
+                cout<<p->executer();
+            }
+        }
+    }

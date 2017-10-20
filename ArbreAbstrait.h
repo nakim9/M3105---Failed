@@ -150,4 +150,21 @@ private:
     Noeud* m_incrementation;
     Noeud* m_seqInstruction;
 };
+
+////////////////////////////////////////////////////////////////////////////////
+
+class NoeudEcrire : public Noeud {
+    // Classe pour représenter un noeud "instruction ecrire"
+public:
+    NoeudEcrire();
+
+    ~NoeudEcrire() {
+    }
+    int executer();
+    void ajoute(Noeud* parametre) override{
+        m_chainesEtExpressions.push_back(parametre);
+    }
+private:
+    vector<Noeud *> m_chainesEtExpressions;
+};
 #endif /* ARBREABSTRAIT_H */

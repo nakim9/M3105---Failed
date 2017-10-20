@@ -60,14 +60,15 @@ Noeud* Interpreteur::seqInst() {
             m_lecteur.getSymbole() == "si" ||
             m_lecteur.getSymbole() == "tantque" ||
             m_lecteur.getSymbole() == "repeter" ||
-            m_lecteur.getSymbole() == "pour");
+            m_lecteur.getSymbole() == "pour" ||
+            m_lecteur.getSymbole() == "ecrire");
     // Tant que le symbole courant est un début possible d'instruction...
     // Il faut compléter cette condition chaque fois qu'on rajoute une nouvelle instruction
     return sequence;
 }
 
 Noeud* Interpreteur::inst() {
-    // <inst> ::= <affectation>  ; | <instSi> | <tantQue> | <instRepeter> ;
+    // <inst> ::= <affectation>  ; | <instSi> | <tantQue> | <instRepeter> ; | <instPour> | <ecrire>;
     if (m_lecteur.getSymbole() == "<VARIABLE>") {
         Noeud *affect = affectation();
         testerEtAvancer(";");
@@ -82,8 +83,11 @@ Noeud* Interpreteur::inst() {
         Noeud* repeter = instRepeter();
         testerEtAvancer(";");
         return repeter;
-    }
-        // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
+    } else if (m_lecteur.getSymbole() == "ecrire") {
+        Noeud* ecrire = instEcrire();
+        testerEtAvancer(";");
+        return ecrire;
+    }// Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
     else erreur("Instruction incorrecte");
 }
 
@@ -211,5 +215,28 @@ Noeud* Interpreteur::instPour() {
     testerEtAvancer(")");
     Noeud* sequence = seqInst();
     testerEtAvancer("finpour");
-    return new NoeudInstPour(init,cond,incr,sequence);
+    return new NoeudInstPour(init, cond, incr, sequence);
+}
+
+Noeud* Interpreteur::instEcrire() {
+    // <instEcrire> ::= ecrire( <expression> | <chaine> {, <expression> | <chaine> })
+    testerEtAvancer("ecrire");
+    testerEtAvancer("(");
+    NoeudEcrire* ecrire = new NoeudEcrire();
+    if (m_lecteur.getSymbole() == "<CHAINE>") {
+         ecrire->ajoute(m_table.chercheAjoute(m_lecteur.getSymbole()));
+         m_lecteur.avancer();
+    } else
+        ecrire->ajoute(expression());
+
+    while (m_lecteur.getSymbole()==",") {
+        testerEtAvancer(",");
+    if (m_lecteur.getSymbole() == "<CHAINE>") {
+         ecrire->ajoute(m_table.chercheAjoute(m_lecteur.getSymbole()));
+         m_lecteur.avancer();
+    } else
+        ecrire->ajoute(expression());
+    }
+    testerEtAvancer(")");
+    return ecrire;
 }
