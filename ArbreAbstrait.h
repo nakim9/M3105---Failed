@@ -98,7 +98,7 @@ class NoeudInstSiRiche : public Noeud {
      // Construit une "instruction si" avec sa condition et sa séquence d'instruction
    ~NoeudInstSiRiche() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si : si condition vraie on exécute la séquence
-
+    void traduitEnCPP(ostream & cout,unsigned int indentation) const;
   private:
     vector<Noeud*> m_vectSi;  
     Noeud*  m_sequenceSinon;
