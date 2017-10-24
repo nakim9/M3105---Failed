@@ -1,16 +1,14 @@
 # Fichier de test
 # Les lignes de commentaires commencent par #
 procedure principale()
-  i = 12+3;
-  si (i>14)
-    j=1;
-  finsi
+    i = 12+3;
+    si (i=14)
+      j=1;
+    finsi
 
-tantque (i<25)  i=i+1;
-fintantque
+    pour(i=0;i<13;i=i+1) j= 2; finpour
 
-repeter  
-    i=i+1; 
-jusqua (i==1000);
+    lire(i,j);
+
 finproc
 # Commentaire Final
