@@ -83,6 +83,29 @@ int NoeudInstSi::executer() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// NoeudInstSiRiche
+////////////////////////////////////////////////////////////////////////////////
+
+NoeudInstSiRiche::NoeudInstSiRiche(vector<Noeud*> vectSi, Noeud* sequenceSinon)
+: m_vectSi(vectSi), m_sequenceSinon(sequenceSinon){
+}
+
+int NoeudInstSiRiche::executer() {
+    int i;
+    // on cherche la premiere condition vraie
+    /*while (i<m_vectSi.size() && ! m_vectSi[i]->executer()) 
+        i+=2;
+    if (i<m_vectSi.size()) m_vectSi[i]->executer();
+    else if (m_sequenceSinon) m_sequenceSinon->executer(); */
+    for (i=0; i < m_vectSi.size() ; i++){
+        m_vectSi[i]->executer();
+    }
+    if (i<m_vectSi.size()) m_vectSi[i]->executer();
+    else if (m_sequenceSinon) m_sequenceSinon->executer();
+    return 0; // La valeur renvoyée ne représente rien !
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // NoeudInstTantQue
 ////////////////////////////////////////////////////////////////////////////////
 

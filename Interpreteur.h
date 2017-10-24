@@ -40,6 +40,8 @@ private:
     Noeud*  instEcrire();  //   <instEcrire> ::= ecrire( <expression> | <chaine> {, <expression> | <chaine> })
     Noeud*  instLire();    //   <instLire> ::= lire ( <variable> { , <variable> } ) 
     
+    Noeud*  instSiRiche(); //   <instSiRiche> ::= si (<expression>) <seqInst> { sinonsi (<expression>) <seqInst> } [sinon <seqInst>] finsi
+            
     // outils pour simplifier l'analyse syntaxique
     void tester (const string & symboleAttendu) const throw (SyntaxeException);   // Si symbole courant != symboleAttendu, on lève une exception
     void testerEtAvancer(const string & symboleAttendu) throw (SyntaxeException); // Si symbole courant != symboleAttendu, on lève une exception, sinon on avance
