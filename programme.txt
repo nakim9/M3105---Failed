@@ -9,6 +9,6 @@ procedure principale()
     pour(i=0;i<13;i=i+1) j= 2; finpour
 
     lire(i,j);
-
+ 
 finproc
 # Commentaire Final
